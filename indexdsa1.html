@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DSA Visualizer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styledsa.css"/>
+</head>
+<body>
+
+<header>
+  <div class="logo">DSA<span>.</span>viz</div>
+  <nav class="header-nav">
+    <button class="nav-btn active" id="navVisualizer" onclick="switchMode('visualizer')">Visualizer</button>
+    <button class="nav-btn" id="navComparison" onclick="switchMode('comparison')">⚔ Comparison</button>
+  </nav>
+  <div class="badge">Sorting Algorithm Visualizer</div>
+</header>
+
+<!-- ═══════════════════ VISUALIZER MODE ═══════════════════ -->
+<div id="modeVisualizer">
+  <div class="main">
+    <aside class="sidebar">
+
+      <div>
+        <div class="section-label">Algorithm</div>
+        <div class="algo-list">
+          <button class="algo-btn active" onclick="selectAlgo('bubble', this)"><span class="dot"></span> Bubble Sort</button>
+          <button class="algo-btn" onclick="selectAlgo('selection', this)"><span class="dot"></span> Selection Sort</button>
+          <button class="algo-btn" onclick="selectAlgo('insertion', this)"><span class="dot"></span> Insertion Sort</button>
+          <button class="algo-btn" onclick="selectAlgo('merge', this)"><span class="dot"></span> Merge Sort</button>
+          <button class="algo-btn" onclick="selectAlgo('quick', this)"><span class="dot"></span> Quick Sort</button>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="section-label">Controls</div>
+        <div class="control-row">
+          <div class="range-labels"><span>Array Size</span><span id="sizeVal">40</span></div>
+          <input type="range" id="sizeSlider" min="10" max="80" value="40"
+            oninput="document.getElementById('sizeVal').textContent=this.value; generateArray()"/>
+          <div class="range-labels"><span>10</span><span>80</span></div>
+        </div>
+        <div class="control-row">
+          <div class="range-labels"><span>Speed</span><span id="speedVal">Medium</span></div>
+          <input type="range" id="speedSlider" min="1" max="5" value="3" oninput="updateSpeed(this.value)"/>
+          <div class="range-labels"><span>Slow</span><span>Fast</span></div>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-primary" id="sortBtn" onclick="startSort()">▶ Sort</button>
+          <button class="btn btn-secondary" onclick="generateArray()">↺ Reset</button>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="section-label">Custom Input</div>
+        <div class="custom-input-wrap">
+          <input type="text" id="customInput" placeholder="e.g. 42, 7, 19, 3, 88"
+            oninput="validateCustomInput()" onkeydown="if(event.key==='Enter') applyCustomInput()"/>
+          <div class="input-hint" id="inputHint">Enter numbers separated by commas (max 80)</div>
+          <button class="btn-apply" id="applyBtn" onclick="applyCustomInput()">&#9166; Apply &amp; Visualize</button>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <h3 id="algoName">Bubble Sort</h3>
+        <p id="algoDesc">Repeatedly compares adjacent elements and swaps them if they're in the wrong order. Simple but O(n²).</p>
+        <div class="complexity-grid">
+          <div class="complexity-item"><div class="c-label">Best</div><div class="c-val" id="bestCase">O(n)</div></div>
+          <div class="complexity-item"><div class="c-label">Worst</div><div class="c-val" id="worstCase">O(n²)</div></div>
+          <div class="complexity-item"><div class="c-label">Average</div><div class="c-val" id="avgCase">O(n²)</div></div>
+          <div class="complexity-item"><div class="c-label">Space</div><div class="c-val" id="spaceCase">O(1)</div></div>
+        </div>
+      </div>
+
+    </aside>
+
+    <main class="canvas-area">
+      <div class="stats-row">
+        <div class="stat-box"><div class="s-label">Comparisons</div><div class="s-val" id="compCount">0</div></div>
+        <div class="stat-box"><div class="s-label">Swaps</div><div class="s-val" id="swapCount">0</div></div>
+        <div class="stat-box"><div class="s-label">Array Size</div><div class="s-val" id="arrSize">40</div></div>
+        <div class="stat-box"><div class="s-label">Time (ms)</div><div class="s-val" id="timeElapsed">—</div></div>
+      </div>
+      <div class="status-bar" id="statusBar">Click Sort to begin visualization</div>
+      <div class="bars-wrap" id="barsWrap"></div>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#1e2235;border:1px solid #2a2d40"></div> Unsorted</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#00f5a0"></div> Comparing / Active</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#00b8ff"></div> Pivot / Reference</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#7c3aed"></div> Sorted</div>
+      </div>
+      <div class="array-output" id="arrayOutput" style="display:none;">
+        <div class="output-col">
+          <div class="output-label">Input Array</div>
+          <div class="output-values" id="inputArrayDisplay"></div>
+        </div>
+        <div class="output-arrow">→</div>
+        <div class="output-col">
+          <div class="output-label">Sorted Output</div>
+          <div class="output-values" id="outputArrayDisplay"></div>
+        </div>
+        <button class="copy-btn" id="copyBtn" onclick="copyOutput()">⎘ Copy</button>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ═══════════════════ COMPARISON MODE ═══════════════════ -->
+<div id="modeComparison" style="display:none;">
+  <div class="cmp-toolbar">
+
+    <!-- Sub-mode toggle -->
+    <div class="cmp-mode-btns">
+      <button class="cmp-mode-btn active" id="cmpBtnAll"    onclick="setCmpMode('all')">Compare All</button>
+      <button class="cmp-mode-btn"        id="cmpBtnSelect" onclick="setCmpMode('select')">Select 2</button>
+    </div>
+
+    <!-- Select-2 pickers (hidden by default) -->
+    <div class="cmp-pickers" id="cmpPickers" style="display:none;">
+      <div class="cmp-picker-wrap">
+        <div class="section-label" style="margin-bottom:4px">Algorithm 1</div>
+        <select class="cmp-select" id="cmpAlgo1">
+          <option value="bubble">Bubble Sort</option>
+          <option value="selection">Selection Sort</option>
+          <option value="insertion" selected>Insertion Sort</option>
+          <option value="merge">Merge Sort</option>
+          <option value="quick">Quick Sort</option>
+        </select>
+      </div>
+      <div class="cmp-picker-wrap">
+        <div class="section-label" style="margin-bottom:4px">Algorithm 2</div>
+        <select class="cmp-select" id="cmpAlgo2">
+          <option value="bubble">Bubble Sort</option>
+          <option value="selection">Selection Sort</option>
+          <option value="insertion">Insertion Sort</option>
+          <option value="merge">Merge Sort</option>
+          <option value="quick" selected>Quick Sort</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="cmp-controls">
+      <div class="cmp-ctrl-row">
+        <span class="cmp-ctrl-label">Size</span>
+        <input type="range" id="cmpSizeSlider" min="10" max="60" value="30"
+          oninput="document.getElementById('cmpSizeVal').textContent=this.value"/>
+        <span class="cmp-ctrl-label" id="cmpSizeVal">30</span>
+      </div>
+      <div class="cmp-ctrl-row">
+        <span class="cmp-ctrl-label">Speed</span>
+        <input type="range" id="cmpSpeedSlider" min="1" max="5" value="3"
+          oninput="updateCmpSpeed(this.value)"/>
+        <span class="cmp-ctrl-label" id="cmpSpeedVal">Medium</span>
+      </div>
+    </div>
+
+    <div class="cmp-action-btns">
+      <button class="btn btn-primary" id="cmpRunBtn" onclick="runComparison()">▶ Race!</button>
+      <button class="btn btn-secondary" onclick="resetComparison()">↺ Reset</button>
+    </div>
+
+  </div>
+
+  <!-- Race grids rendered here by JS -->
+  <div class="cmp-arena" id="cmpArena"></div>
+
+  <!-- Winner banner -->
+  <div class="winner-banner" id="winnerBanner" style="display:none;"></div>
+</div>
+
+<script src="scriptdsa.js"></script>
+</body>
+</html>
