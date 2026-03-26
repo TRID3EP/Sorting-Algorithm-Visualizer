@@ -6,7 +6,7 @@
   --accent2: #00b8ff;
   --warn: #ff6b6b;
   --text: #e4e6f0;
-  --muted: #5a5f7a;
+  --muted: #fbfbfc;
   --bar-default: #1e2235;
   --bar-active: #00f5a0;
   --bar-compare: #00b8ff;
@@ -18,7 +18,7 @@
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: 'Syne', sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
 }
@@ -32,7 +32,6 @@ body::before {
   z-index: 0;
 }
 
-/* ── Header ── */
 header {
   padding: 16px 40px;
   border-bottom: 1px solid var(--border);
@@ -48,7 +47,7 @@ header {
 .logo span { color: var(--accent); }
 
 .badge {
-  font-family: 'Space Mono', monospace;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 0.65rem;
   background: var(--border);
   color: var(--muted);
@@ -57,7 +56,6 @@ header {
   border: 1px solid var(--border);
 }
 
-/* ── Header Nav ── */
 .header-nav {
   display: flex;
   gap: 6px;
@@ -71,7 +69,7 @@ header {
   background: none;
   border: none;
   color: var(--muted);
-  font-family: 'Syne', sans-serif;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
   font-weight: 700;
   font-size: 0.8rem;
   padding: 7px 16px;
@@ -82,7 +80,6 @@ header {
 .nav-btn:hover { color: var(--text); }
 .nav-btn.active { background: var(--accent); color: #000; }
 
-/* ── Visualizer Layout ── */
 .main {
   display: grid;
   grid-template-columns: 260px 1fr;
@@ -100,7 +97,7 @@ header {
 }
 
 .section-label {
-  font-family: 'Space Mono', monospace;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 0.6rem;
   letter-spacing: 0.15em;
   color: var(--muted);
@@ -114,7 +111,7 @@ header {
   background: none;
   border: 1px solid var(--border);
   color: var(--muted);
-  font-family: 'Syne', sans-serif;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 0.85rem;
   font-weight: 700;
   padding: 10px 14px;
@@ -152,7 +149,7 @@ input[type=range]::-webkit-slider-thumb {
 .range-labels {
   display: flex;
   justify-content: space-between;
-  font-family: 'Space Mono', monospace;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 0.6rem;
   color: var(--muted);
 }
@@ -164,7 +161,7 @@ input[type=range]::-webkit-slider-thumb {
   padding: 10px;
   border-radius: 8px;
   border: none;
-  font-family: 'Syne', sans-serif;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-weight: 700;
   font-size: 0.8rem;
   cursor: pointer;
@@ -182,7 +179,7 @@ input[type=range]::-webkit-slider-thumb {
   border: 1px solid var(--border);
   border-radius: 7px;
   color: var(--text);
-  font-family: 'Space Mono', monospace;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 0.7rem;
   padding: 8px 10px;
   outline: none;
@@ -192,7 +189,7 @@ input[type=range]::-webkit-slider-thumb {
 .custom-input-wrap input[type=text]:focus { border-color: var(--accent); }
 .custom-input-wrap input[type=text].error { border-color: var(--warn); }
 
-.input-hint { font-family: 'Space Mono', monospace; font-size: 0.55rem; color: var(--muted); }
+.input-hint { font-family:Verdana, Geneva, Tahoma, sans-serif; font-size: 0.55rem; color: var(--muted); }
 .input-hint.err { color: var(--warn); }
 
 .btn-apply {
@@ -201,7 +198,7 @@ input[type=range]::-webkit-slider-thumb {
   border: 1px solid var(--accent);
   border-radius: 7px;
   padding: 7px;
-  font-family: 'Syne', sans-serif;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-weight: 700;
   font-size: 0.78rem;
   cursor: pointer;
@@ -226,7 +223,7 @@ input[type=range]::-webkit-slider-thumb {
   background: var(--bg);
   border-radius: 6px;
   padding: 7px 10px;
-  font-family: 'Space Mono', monospace;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .complexity-item .c-label { font-size: 0.55rem; color: var(--muted); text-transform: uppercase; }
 .complexity-item .c-val   { font-size: 0.75rem; color: var(--accent2); margin-top: 2px; }
@@ -245,7 +242,7 @@ input[type=range]::-webkit-slider-thumb {
   min-width: 110px;
 }
 .stat-box .s-label {
-  font-family: 'Space Mono', monospace;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 0.55rem;
   color: var(--muted);
   text-transform: uppercase;
@@ -259,7 +256,7 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 .status-bar {
-  font-family: 'Space Mono', monospace;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 0.7rem;
   color: var(--accent2);
   background: var(--panel);
@@ -312,11 +309,10 @@ input[type=range]::-webkit-slider-thumb {
   gap: 6px;
   font-size: 0.68rem;
   color: var(--muted);
-  font-family: 'Space Mono', monospace;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .legend-dot { width: 10px; height: 10px; border-radius: 2px; }
 
-/* ── Array Output Panel ── */
 .array-output {
   display: flex;
   align-items: center;
@@ -331,11 +327,11 @@ input[type=range]::-webkit-slider-thumb {
 @keyframes fadeSlideIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
 
 .output-col { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 0; }
-.output-label { font-family: 'Space Mono', monospace; font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.output-label { font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
 .output-values { display: flex; flex-wrap: wrap; gap: 5px; }
 
 .output-chip {
-  font-family: 'Space Mono', monospace;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 0.72rem;
   padding: 4px 9px;
   border-radius: 5px;
@@ -356,7 +352,7 @@ input[type=range]::-webkit-slider-thumb {
   background: transparent;
   border: 1px solid var(--border);
   color: var(--muted);
-  font-family: 'Space Mono', monospace;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 0.62rem;
   padding: 6px 12px;
   border-radius: 7px;
@@ -365,9 +361,6 @@ input[type=range]::-webkit-slider-thumb {
 }
 .copy-btn:hover, .copy-btn.copied { border-color: var(--accent); color: var(--accent); }
 
-/* ════════════════════════════════════════
-   COMPARISON MODE
-════════════════════════════════════════ */
 #modeComparison {
   display: flex;
   flex-direction: column;
@@ -402,7 +395,7 @@ input[type=range]::-webkit-slider-thumb {
   background: none;
   border: none;
   color: var(--muted);
-  font-family: 'Syne', sans-serif;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-weight: 700;
   font-size: 0.78rem;
   padding: 7px 14px;
@@ -420,7 +413,7 @@ input[type=range]::-webkit-slider-thumb {
   background: var(--bg);
   border: 1px solid var(--border);
   color: var(--text);
-  font-family: 'Syne', sans-serif;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-weight: 600;
   font-size: 0.78rem;
   padding: 7px 10px;
@@ -433,12 +426,11 @@ input[type=range]::-webkit-slider-thumb {
 
 .cmp-controls { display: flex; flex-direction: column; gap: 8px; flex: 1; max-width: 260px; }
 .cmp-ctrl-row { display: flex; align-items: center; gap: 8px; }
-.cmp-ctrl-label { font-family: 'Space Mono', monospace; font-size: 0.6rem; color: var(--muted); white-space: nowrap; min-width: 36px; }
+.cmp-ctrl-label { font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 0.6rem; color: var(--muted); white-space: nowrap; min-width: 36px; }
 
 .cmp-action-btns { display: flex; gap: 8px; flex-shrink: 0; }
 .cmp-action-btns .btn { flex: none; padding: 10px 20px; }
 
-/* Arena grid */
 .cmp-arena {
   display: grid;
   gap: 1px;
@@ -450,7 +442,6 @@ input[type=range]::-webkit-slider-thumb {
 .cmp-arena.grid-5 { grid-template-columns: repeat(5, 1fr); }
 .cmp-arena.grid-2 { grid-template-columns: repeat(2, 1fr); }
 
-/* Each algorithm panel */
 .race-panel {
   background: var(--bg);
   display: flex;
@@ -476,7 +467,7 @@ input[type=range]::-webkit-slider-thumb {
   text-overflow: ellipsis;
 }
 .race-badge {
-  font-family: 'Space Mono', monospace;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 0.55rem;
   padding: 3px 8px;
   border-radius: 20px;
@@ -522,10 +513,9 @@ input[type=range]::-webkit-slider-thumb {
   flex-direction: column;
   gap: 1px;
 }
-.race-stat .rs-label { font-family: 'Space Mono', monospace; font-size: 0.44rem; color: var(--muted); text-transform: uppercase; }
+.race-stat .rs-label { font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 0.44rem; color: var(--muted); text-transform: uppercase; }
 .race-stat .rs-val   { font-size: 0.78rem; font-weight: 800; color: var(--accent); font-variant-numeric: tabular-nums; }
 
-/* Winner banner */
 .winner-banner {
   position: fixed;
   top: 50%;
@@ -543,14 +533,14 @@ input[type=range]::-webkit-slider-thumb {
 @keyframes bannerPop { from { opacity:0; transform:translate(-50%,-50%) scale(0.7); } to { opacity:1; transform:translate(-50%,-50%) scale(1); } }
 
 .winner-banner h2 { font-size: 1.6rem; color: var(--accent); margin-bottom: 6px; }
-.winner-banner p  { font-family: 'Space Mono', monospace; font-size: 0.72rem; color: var(--muted); margin-bottom: 16px; }
+.winner-banner p  { font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 0.72rem; color: var(--muted); margin-bottom: 16px; }
 .winner-banner button {
   background: var(--accent);
   color: #000;
   border: none;
   border-radius: 8px;
   padding: 10px 24px;
-  font-family: 'Syne', sans-serif;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-weight: 700;
   font-size: 0.85rem;
   cursor: pointer;
