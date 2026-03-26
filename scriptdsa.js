@@ -1,8 +1,3 @@
-// ════════════════════════════════════════════════════════════
-//  DSA VISUALIZER  —  script.js
-// ════════════════════════════════════════════════════════════
-
-// ── Shared helpers ────────────────────────────────────────────────────────────
 function makeSleep(getRunning) {
   return function sleep(ms) {
     return new Promise(function(resolve, reject) {
@@ -18,7 +13,6 @@ function sortedCopy(arr) {
   return arr.slice().sort(function(a, b) { return a - b; });
 }
 
-// ── Algorithm metadata ────────────────────────────────────────────────────────
 var algoData = {
   bubble:    { name: 'Bubble Sort',    short: 'Bubble',    desc: 'Repeatedly compares adjacent elements and swaps them if wrong order. Simple but O(n²).',                best: 'O(n)',       worst: 'O(n²)',      avg: 'O(n²)',      space: 'O(1)'     },
   selection: { name: 'Selection Sort', short: 'Selection', desc: 'Finds the minimum element from unsorted part and places it at the beginning each iteration.',           best: 'O(n²)',      worst: 'O(n²)',      avg: 'O(n²)',      space: 'O(1)'     },
@@ -29,14 +23,10 @@ var algoData = {
 
 var ALL_ALGOS = ['bubble', 'selection', 'insertion', 'merge', 'quick'];
 
-// ════════════════════════════════════════════════════════════
-//  MODE SWITCHING
-// ════════════════════════════════════════════════════════════
 var currentMode = 'visualizer';
 
 function switchMode(mode) {
   currentMode = mode;
-  // stop anything running
   vizSorting = false;
   cmpRunning = false;
 
@@ -51,9 +41,6 @@ function switchMode(mode) {
   }
 }
 
-// ════════════════════════════════════════════════════════════
-//  VISUALIZER MODE
-// ════════════════════════════════════════════════════════════
 var array         = [];
 var originalArray = [];
 var vizSorting    = false;
@@ -151,7 +138,6 @@ async function startSort() {
       showOutput();
     }
   } catch(e) {
-    // aborted by reset
   } finally {
     if (vizSorting) {
       vizSorting = false;
@@ -160,8 +146,6 @@ async function startSort() {
   }
 }
 
-// ── Runs a sort on a given array reference, calling onRender + onStats ────────
-// Returns { comparisons, swaps }
 async function runVizAlgo(algo, arr, sleepFn, onRender, onStats) {
   if      (algo === 'bubble')    await _bubble(arr, sleepFn, onRender, onStats);
   else if (algo === 'selection') await _selection(arr, sleepFn, onRender, onStats);
@@ -169,10 +153,6 @@ async function runVizAlgo(algo, arr, sleepFn, onRender, onStats) {
   else if (algo === 'merge')     await _mergeWrapper(arr, sleepFn, onRender, onStats);
   else if (algo === 'quick')     await _quickWrapper(arr, sleepFn, onRender, onStats);
 }
-
-// ── Sorting algorithm implementations ─────────────────────────────────────────
-// Each takes (arr, sleepFn, onRender, onStats, statsObj)
-// statsObj = { comparisons, swaps } — mutated in place
 
 async function _bubble(arr, sleepFn, onRender, onStats) {
   var n = arr.length, sortedSet = [];
@@ -265,7 +245,6 @@ async function _partition(arr, low, high, sleepFn, onRender, onStats) {
   return i + 1;
 }
 
-// ── Custom Input ──────────────────────────────────────────────────────────────
 function validateCustomInput() {
   if (vizSorting) return true;
   var raw      = document.getElementById('customInput').value.trim();
@@ -321,7 +300,6 @@ function applyCustomInput() {
   hideOutput(); renderBars([], [], []); startSort();
 }
 
-// ── Output Panel ──────────────────────────────────────────────────────────────
 function showOutput() {
   var panel    = document.getElementById('arrayOutput');
   var inputEl  = document.getElementById('inputArrayDisplay');
@@ -365,13 +343,10 @@ function copyOutput() {
   });
 }
 
-// ════════════════════════════════════════════════════════════
-//  COMPARISON MODE
-// ════════════════════════════════════════════════════════════
 var cmpRunning  = false;
-var cmpMode     = 'all';    // 'all' | 'select'
+var cmpMode     = 'all';
 var cmpDelay    = 40;
-var cmpFinished = [];       // tracks finish order
+var cmpFinished = [];
 
 function setCmpMode(mode) {
   cmpMode = mode;
@@ -490,7 +465,6 @@ async function runComparison() {
   var base  = [];
   for (var i = 0; i < size; i++) base.push(Math.floor(Math.random() * 90) + 10);
 
-  // Rebuild arena with the same base array for all
   var arena = document.getElementById('cmpArena');
   arena.innerHTML = '';
   arena.className = 'cmp-arena ' + (algos.length === 5 ? 'grid-5' : 'grid-2');
@@ -498,7 +472,6 @@ async function runComparison() {
     arena.appendChild(buildRacePanel(algo, base.slice()));
   });
 
-  // Launch all races in parallel
   var promises = algos.map(function(algo) {
     return raceOne(algo, base.slice());
   });
@@ -518,7 +491,6 @@ async function raceOne(algo, arr) {
 
   var sleepFn = makeSleep(function() { return cmpRunning; });
 
-  // per-algo counters (closure)
   var myComp = 0, mySw = 0;
 
   function onRender(active, compare, sorted) {
@@ -533,8 +505,6 @@ async function raceOne(algo, arr) {
     if (te) te.textContent = Date.now() - t0;
   }
 
-  // We need per-panel counters separate from global ones.
-  // Override the global comparisons/swaps just for this run via a wrapper.
   try {
     await runRaceAlgo(algo, arr, sleepFn, onRender, onStats,
       function(c, s) { myComp = c; mySw = s; });
@@ -553,11 +523,10 @@ async function raceOne(algo, arr) {
 
   cmpFinished.push({ algo: algo, elapsed: elapsed, comp: myComp, sw: mySw });
   var rank = cmpFinished.length;
-  var label = rank === 1 ? '🏆 1st' : (rank === 2 ? '🥈 2nd' : (rank === 3 ? '🥉 3rd' : rank + 'th'));
+  var label = rank === 1 ? '1st' : (rank === 2 ? '2nd' : (rank === 3 ? '3rd' : rank + 'th'));
   setBadge(algo, rank === 1 ? 'winner' : '', label);
 }
 
-// Separate algo runner for comparison mode with its own counters
 async function runRaceAlgo(algo, arr, sleepFn, onRender, onStats, setCounters) {
   var c = 0, s = 0;
   function bump(dc, ds) { c += dc; s += ds; setCounters(c, s); }
@@ -655,12 +624,11 @@ function showWinner() {
   var winner = cmpFinished[0];
   var banner = document.getElementById('winnerBanner');
   banner.innerHTML =
-    '<h2>🏆 ' + algoData[winner.algo].name + '</h2>' +
+    '<h2>' + algoData[winner.algo].name + '</h2>' +
     '<p>Finished first in ' + winner.elapsed + 'ms &nbsp;·&nbsp; ' +
     winner.comp + ' comparisons &nbsp;·&nbsp; ' + winner.sw + ' swaps</p>' +
     '<button onclick="document.getElementById(\'winnerBanner\').style.display=\'none\'">✕ Close</button>';
   banner.style.display = 'block';
 }
 
-// ── Init ──────────────────────────────────────────────────────────────────────
 generateArray();
