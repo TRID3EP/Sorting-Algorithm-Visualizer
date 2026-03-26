@@ -1,16 +1,16 @@
 :root {
-  --bg: #0b0c10;
+  --bg: #000000;
   --panel: #12141a;
-  --border: #1f2230;
-  --accent: #00f5a0;
+  --border: #475bb6;
+  --accent: #00f587;
   --accent2: #00b8ff;
   --warn: #ff6b6b;
   --text: #e4e6f0;
   --muted: #fbfbfc;
-  --bar-default: #1e2235;
-  --bar-active: #00f5a0;
+  --bar-default: #2f2f74;
+  --bar-active: #f4f4f9;
   --bar-compare: #00b8ff;
-  --bar-sorted: #7c3aed;
+  --bar-sorted: #09f075;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
